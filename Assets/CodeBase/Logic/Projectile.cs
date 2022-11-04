@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
             DestroyProjectile(hit);
         }
         MoveProjectile(Direction);
+
     }
 
     private void MoveProjectile(Vector3 direction) 
