@@ -16,10 +16,17 @@ public class Projectile : MonoBehaviour
 
         if (Physics.Raycast(projectileRay, out RaycastHit hit, _distanceCheck, ~IgnoredLayers) == true)
         {
-            GameObject.Instantiate(_particlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-            GameObject.Destroy(gameObject);
+            DestroyProjectile(hit);
         }
+        MoveProjectile(Direction);
+    }
 
-        transform.position += Direction * _speed * Time.deltaTime;
+    private void MoveProjectile(Vector3 direction) 
+        => this.transform.position += direction * _speed * Time.deltaTime;
+
+    private void DestroyProjectile(RaycastHit hit)
+    {
+        GameObject.Instantiate(_particlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+        GameObject.Destroy(gameObject);
     }
 }

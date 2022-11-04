@@ -8,6 +8,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private LayerMask _ignoredLayers;
 
     private InputService _inputService;
+    private float _maxRayDistance = 1000f;
 
     private void Start()
     {
@@ -18,16 +19,23 @@ public class PlayerShooting : MonoBehaviour
     {
         if (_inputService.GetShootButton())
         {
-            Ray cameraRay = Camera.main.ScreenPointToRay(_inputService.MousePosition);
+            Ray cameraRay = GetMouseRay();
 
-            if (Physics.Raycast(cameraRay, out RaycastHit hit, 1000f, ~_ignoredLayers) == true)
+            if (Physics.Raycast(cameraRay, out RaycastHit hit, _maxRayDistance, ~_ignoredLayers) == true)
             {
                 Vector3 direction = (hit.point - _gunPoint.position).normalized;
-
-                GameObject projectile = GameObject.Instantiate(_projectilePrefab, _gunPoint.position, Quaternion.identity);
-                projectile.transform.LookAt(hit.point);
-                projectile.GetComponent<Projectile>().Direction = direction;
+                RealeseProjectile(hit, direction);
             }
         }
     }
+
+    private void RealeseProjectile(RaycastHit hit, Vector3 direction)
+    {
+        GameObject projectile = GameObject.Instantiate(_projectilePrefab, _gunPoint.position, Quaternion.identity);
+        projectile.transform.LookAt(hit.point);
+        projectile.GetComponent<Projectile>().Direction = direction;
+    }
+
+    private Ray GetMouseRay() 
+        => Camera.main.ScreenPointToRay(_inputService.MousePosition);
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,18 +20,25 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Vector3 inputVector = GetInputVector();
+        //ApplyGravity();
+        Jump();
         MovePlayer(inputVector * _speed);
-
-        ApplyGravity();
         MovePlayer(_verticalVelocity);
     }
-
     private void ApplyGravity()
     {
-        if (CharacterController.isGrounded == true)
-            _verticalVelocity.y = 0f;
-        else
+        if (CharacterController.isGrounded == false)
             _verticalVelocity.y += Gravity * Time.deltaTime;
+    }
+
+    private void Jump()
+    {   if (CharacterController.isGrounded)
+            if (_inputService.CheckJumpInput())
+                _verticalVelocity.y = _inputService.GetJumpInput();
+            else
+                _verticalVelocity.y += 0;
+        else
+            ApplyGravity();
     }
 
     private void MovePlayer(Vector3 movement) 
