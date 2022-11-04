@@ -15,8 +15,6 @@ public class InputService
 
     public float GetJumpInput() 
         => _inputVector.y = Input.GetAxis("Jump");
-    public bool CheckJumpInput() 
-        => Input.GetAxis("Jump") > 0;
     public bool GetShootButton() 
         => Input.GetMouseButtonDown(0);
 }

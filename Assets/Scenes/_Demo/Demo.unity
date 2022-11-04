@@ -4958,6 +4958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 6454127379674183505}
   _speed: 7
+  _jumpForce: 3
 --- !u!114 &6454127379674183507
 MonoBehaviour:
   m_ObjectHideFlags: 0

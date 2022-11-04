@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController CharacterController;
     [SerializeField] private float _speed;
+    [SerializeField] private float _jumpForce;
 
     private InputService _inputService;
     private Vector3 _verticalVelocity;
@@ -14,13 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _inputService = new InputService();
-        _verticalVelocity = Vector3.up * Gravity;
+        _verticalVelocity = Vector3.up;
     }
 
     private void Update()
     {
         Vector3 inputVector = GetInputVector();
-        //ApplyGravity();
         Jump();
         MovePlayer(inputVector * _speed);
         MovePlayer(_verticalVelocity);
@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {   if (CharacterController.isGrounded)
-            if (_inputService.CheckJumpInput())
-                _verticalVelocity.y = _inputService.GetJumpInput();
+            if (_inputService.GetJumpInput() > 0)
+                _verticalVelocity.y = _inputService.GetJumpInput() * _jumpForce;
             else
                 _verticalVelocity.y += 0;
         else
