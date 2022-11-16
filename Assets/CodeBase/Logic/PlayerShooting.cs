@@ -17,20 +17,19 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-       if (_inputService.GetShootButton())
-       {
+        if (_inputService.GetShootButton())
+        {
             Ray cameraRay = GetMouseRay();
 
             if (Physics.Raycast(cameraRay, out RaycastHit hit, _maxRayDistance, ~_ignoredLayers) == true)
             {
                 Vector3 direction = (hit.point - _gunPoint.position).normalized;
-                ReleseProjectile(hit, direction);
+                RealeseProjectile(hit, direction);
             }
-       }
-
+        }
     }
 
-    private void ReleseProjectile(RaycastHit hit, Vector3 direction)
+    private void RealeseProjectile(RaycastHit hit, Vector3 direction)
     {
         GameObject projectile = GameObject.Instantiate(_projectilePrefab, _gunPoint.position, Quaternion.identity);
         projectile.transform.LookAt(hit.point);

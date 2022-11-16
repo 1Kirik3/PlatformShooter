@@ -32,8 +32,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump()
-    {   
-        if (CharacterController.isGrounded)
+    {   if (CharacterController.isGrounded)
             if (_inputService.GetJumpInput() > 0)
                 _verticalVelocity.y = _inputService.GetJumpInput() * _jumpForce;
             else
