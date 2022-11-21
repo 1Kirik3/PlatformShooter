@@ -1,20 +1,32 @@
+using Assets.CodeBase.Infrasctructure;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController CharacterController;
+
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
 
-    private InputService _inputService;
+    [SerializeField] private float _acceleration;
+    [SerializeField] private float _maxAcceleration;
+    [SerializeField] private float _groundAcceleration;
+    [SerializeField] private float _controlMovement;
+
+
     private Vector3 _verticalVelocity;
+
+    private InputService _inputService;
+
+   
 
     private const float Gravity = -9.81f;
 
     private void Start()
     {
-        _inputService = new InputService();
+        _inputService = AllServices.Instance.GetService<InputService>();
+
         _verticalVelocity = Vector3.up;
     }
 

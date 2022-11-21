@@ -1,7 +1,7 @@
-﻿using Unity.VisualScripting;
+﻿using Assets.CodeBase.Infrasctructure;
 using UnityEngine;
 
-public class InputService
+public class InputService : IService
 {
     private Vector3 _inputVector = Vector3.zero;
     public Vector3 MousePosition => Input.mousePosition;
